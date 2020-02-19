@@ -4,6 +4,10 @@ import numpy as np
 
 class DistributionBin(object):
 
+    """Describes an interval ['lower','upper'] of price in a probability distribution over price"""
+
+    # 'mean' - the expected value of price given that price is between 'lower' and 'upper'
+    # 'probability' - probability that price is between 'lower' and 'upper'
     def __init__(self, lower, upper, mean, probability):
         if not ((mean >= lower) and (upper >= mean)): raise ValueError("'lower' <= 'mean' <= 'upper' violated.")
         if probability < 0 or probability > 1: raise ValueError("probability must be 0<=p<=1")
@@ -66,18 +70,23 @@ class Model(object):
     def fit(self, prices):
         raise NotImplementedError()
 
+    # predict probability distribution, represented by a list of DistributionBins, over price at some future instant
     def predict(self, last_prices):
         raise NotImplementedError()
 
-
+# TODO- rename to 'BinaryClassifier'
 class DistributionClassifier(object):
 
+    """Predict probability distributions, split at some price into two DistributionBins, over price at some future instant"""
+
+    # 'clf' is a classifier that implments 'fit' and 'predict' (like an sklearn classifier)
     def __init__(self, clf):
         self._clf = clf
         self._split = None
         self._below_mean = None
         self._above_mean = None
 
+    # fit classifier 'clf' on X,(y>split)
     def fit(self, X, y, split):
 
         self._split = split
@@ -111,6 +120,8 @@ class DistributionClassifier(object):
 
 class BinaryClassifierTree(object):
 
+    """Tree of BinaryClassifiers, where left/right sub-trees predict price distributions given that the price will be below/above 'split'"""
+
     def __init__(self, clf, split, below=None, above=None):
         self.clf = clf
         self.split = split
@@ -119,6 +130,8 @@ class BinaryClassifierTree(object):
 
 
 class BisectingClassifier(Model):
+
+   """Generate a BinaryClassifierTree, and use it to predict a probability distribution over price at some future instant"""
 
     def _create_tree(self, splits, base_models):
         if splits == []: return None
@@ -132,6 +145,10 @@ class BisectingClassifier(Model):
             self._create_tree(splits[:bisector], base_models[:bisector]),
             self._create_tree(splits[bisector + 1:], base_models[bisector + 1:]))
 
+    
+    # 'splits'- prices at which probabiilty distribution over price will be split into DistributionBins
+    # 'base_models'- list of len('splits') classifiers with 'fit' and 'predict' methods for predicting price distributions
+    # 'lags'- the number of previous time steps used to predict future price ('lags' + 1 instants)
     def __init__(self, splits, base_models, lags):
 
         if not len(splits) > 0: raise ValueError('No splits provided.')
@@ -192,6 +209,7 @@ class BisectingClassifier(Model):
         dist = below_dist + above_dist
         return dist
 
+    # Use the last 'lags' + 1 prices to predict a price distribution, represented as a list of DistributionBins
     def predict(self, last_prices):
         last_prices = np.array(last_prices)
         features = np.flip(np.log(last_prices[1:] / last_prices[:-1]))
