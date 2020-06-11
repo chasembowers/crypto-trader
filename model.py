@@ -131,7 +131,7 @@ class BinaryClassifierTree(object):
 
 class BisectingClassifier(Model):
 
-   """Generate a BinaryClassifierTree, and use it to predict a probability distribution over price at some future instant"""
+    """Generate a BinaryClassifierTree, and use it to predict a probability distribution over price at some future instant"""
 
     def _create_tree(self, splits, base_models):
         if splits == []: return None
