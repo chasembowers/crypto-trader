@@ -37,7 +37,7 @@ def backtest():
     # Create a model which predicts probability price will change by
     # ratio of (-inf,-.002],(-.002, 0],(0,.002],(.002, inf).
     # Use RandomForest as base classifier for each of 3 splits of (-inf,inf).
-    # Generate features from the 3 most recent prices.
+    # Generate features from the 3 most recent price changes (4 prices).
     model = BisectingClassifier(
         [-.002, 0, .002],
         [RandomForestClassifier(max_depth=10, n_estimators=20) for i in range(3)],
