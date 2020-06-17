@@ -20,7 +20,7 @@ model = BisectingClassifier(
 
 ## Trader
 
-While the Model outputs price predictions, the Trader outputs suggested trading positions based on those predictions. So the Trader might maximize expected value of profit greedily, or it might wait for a better time to enter. The trader might vary position sizes based on the shape of the predicted price distribution. An example of a expected value maximizing Trader can be found in 'trader.py'.
+While the Model outputs price predictions, the Trader outputs suggested trading positions based on those predictions. So the Trader might maximize expected value of profit greedily, or it might wait for a better time to enter. The trader might vary position sizes based on the shape of the predicted price distribution. An example of an expected value maximizing Trader can be found in 'trader.py'.
 
 ## Backtest
 
