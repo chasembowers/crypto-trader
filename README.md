@@ -29,3 +29,7 @@ An example of backtesting can be found in 'backtest.py'.
 Trading is simulated on historical closing prices from a local database. Periodically, the model is retrained with more "recent" data, and a graph of profit/losss and monthly sharpe ratio are updated.
 
 ![alt tag](https://raw.githubusercontent.com/chasembowers/crypto-trader/master/3_lag.png)
+
+## Local Database
+
+Historical candlestick data is downloaded/streamed to a local SQL database using the 'ccxt' cryptocurrency API library.  
