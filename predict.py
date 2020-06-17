@@ -42,7 +42,7 @@ while True:
     if not new_candles.empty:
         last_time = new_candles.index.max()
         close = close.append(new_candles['close'])
-        print('Prediction for timestamp {:d}:'.format(last_time))
+        print('Prediction for timestamp {:d}:'.format(int(last_time)))
         print(predict(close.iloc[-4:], model), '\n')
         print('Fitting model...')
         model.fit(close.iloc[-MINUTES_IN_MONTH:])
