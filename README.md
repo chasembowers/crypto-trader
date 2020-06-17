@@ -1,6 +1,6 @@
 crypto-trader
 ========
-Crypto-currency backtesting and price prediction built around ML prediction of probability distribution of instantaneous price 
+Crypto-currency backtesting and live price prediction that uses binary tree of ML classifiers to approximate probability distribution over future, instantaneous price
 
 ## Model
 
