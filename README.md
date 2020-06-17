@@ -17,3 +17,13 @@ model = BisectingClassifier(
     [RandomForestClassifier(max_depth=10, n_estimators=20) for i in range(3)],
     3)
 ```
+
+## Trader
+
+While the Model outputs price predictions, the Trader outputs suggested trading positions based on those predictions. So the Trader might maximize expected value of profit greedily, or it might wait for a better time to enter. The trader might vary position sizes based on the shape of the predicted price distribution. An example of a expected value maximizing Trader can be found in 'trader.py'.
+
+## Backtest
+
+An example of backtesting can be found in 'backtest.py'.
+
+Trading is simulated on historical closing prices from a local database. Periodically, the model is retrained with more "recent" data, and a graph of profit/losss and monthly sharpe ratio are updated.
