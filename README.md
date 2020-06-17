@@ -8,7 +8,7 @@ Instead of using regression to predict a price at a future instant or using clas
 
 Model Construction Example
 ```python
-# Create a model which predicts probability price will change by
+# Create a model which predicts probability that price will change by
 # ratio of (-inf,-.002],(-.002, 0],(0,.002],(.002, inf).
 # Use RandomForest as base classifier for each of 3 splits of (-inf,inf).
 # Generate features from the 3 most recent price changes (4 prices).
