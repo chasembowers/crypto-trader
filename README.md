@@ -32,4 +32,17 @@ Trading is simulated on historical closing prices from a local database. Periodi
 
 ## Local Database
 
-Historical candlestick data is downloaded/streamed to a local SQL database using the 'ccxt' cryptocurrency API library.  
+Historical candlestick data is downloaded/streamed to a local SQL database using the 'ccxt' cryptocurrency API library. An example of this can be found in 'download_candles.py'.
+
+## Predict
+
+An example of live prediction can be found in 'predict.py'. 'download_candles.py' must be running in a separate thread. Each time a new candle is streamed to the local database, a probability distribution over the price in 1 future minute is output
+in the following form:
+
+```
+[DistributionBin<0.0,9431.38853925509,9446.23966>(0.004693331982555838), DistributionBin<9446.23966,9461.434238012913,9465.17>(0.4824197677209406), DistributionBin<9465.17,9469.044872569932,9484.10034>(0.5082717689732247), DistributionBin<9484.10034,9493.683703288838,inf>(0.00461513132327911)] 
+```
+
+## Next Steps
+
+Backtesting over months/years takes a long time (hours) because this is written in Python. Backtesting could be sharded into many smaller time periods and run in parallel in a cloud computing environment with very little loss of statistical value. Eventually, latency-sensitive parts of this system would be ported to another language like C/++,
