@@ -16,5 +16,4 @@ model = BisectingClassifier(
     [-.002, 0, .002],
     [RandomForestClassifier(max_depth=10, n_estimators=20) for i in range(3)],
     3)
-model.fit(close.iloc[-MINUTES_IN_MONTH:])
 ```
