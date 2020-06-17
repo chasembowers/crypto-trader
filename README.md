@@ -1,2 +1,8 @@
-# crypto-trader
-Crypto-currency backtesting built around ML prediction of probability distribution of instantaneous price 
+crypto-trader
+========
+Crypto-currency backtesting and price prediction built around ML prediction of probability distribution of instantaneous price 
+
+## Model
+
+Instead of using regression to predict a price at a future instant or using classification to predict the probability of the price being below/above a number at a future instant, approximate probability distributions over price at a future instant are are predicted. A binary tree of classifiers is created, with each node splitting the probability distribution at a certain price. In this way, an arbitrarily granular approximation of a probability distribution over price can be created.
+
